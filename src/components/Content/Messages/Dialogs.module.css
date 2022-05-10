@@ -1,0 +1,14 @@
+.body {
+    display: flex;
+
+}
+.dialogs {
+    padding-right: 50px;
+}
+.active {
+    color: gold;
+}
+.item {
+    color: darkred;
+}
+
