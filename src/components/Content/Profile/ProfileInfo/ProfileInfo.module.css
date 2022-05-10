@@ -1,0 +1,9 @@
+.poster {
+    width: 100%;
+}
+.poster img{
+    max-width: 100%;
+}
+.ava {
+    padding: 20px;
+}

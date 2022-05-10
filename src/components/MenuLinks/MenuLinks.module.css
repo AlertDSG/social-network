@@ -1,0 +1,10 @@
+nav {
+    background: blue;
+    padding: 20px;
+}
+.item {
+    color: white;
+}
+.active {
+    color: gold;
+}
