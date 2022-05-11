@@ -32,7 +32,6 @@ type MessagesDataType = {
 
 export const Content = (props: StateProps) => {
     return (
-        <main>
             <Routes>
                 <Route path='/profile/*' element={<Profile postData={props.appState.postData} />}/>
                 <Route path='/dialogs/*'
@@ -42,6 +41,5 @@ export const Content = (props: StateProps) => {
                 <Route path='/music/*' element={<Music/>}/>
                 <Route path='/settings/*' element={<Settings/>}/>
             </Routes>
-        </main>
     )
 }

@@ -8,7 +8,8 @@ export const DialogItem = (props: any) => {
     return (
         <div>
             <NavLink to={path}
-                     className={navData => navData.isActive ? s.active : s.item}>{props.name}
+                     className={navData => navData.isActive ? s.active : s.item}>
+                {props.name}
             </NavLink>
         </div>
     )
