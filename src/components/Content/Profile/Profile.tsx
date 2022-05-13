@@ -5,9 +5,10 @@ import {MyPosts} from "./MyPosts/MyPosts";
 
 type ProfilePropsType = {
     postData: Array<PostDataType>
+    dispatch: (action: {type: 'ADD-POST', newText: string}) => void
 }
 type PostDataType = {
-    id: number
+    id: string
     message: string
     likesCount: number
 }
@@ -16,7 +17,8 @@ export const Profile = (props: ProfilePropsType) => {
     return (
         <div className={s.contentBody}>
             <ProfileInfo/>
-            <MyPosts postData={props.postData}/>
+            <MyPosts postData={props.postData}
+                     dispatch={props.dispatch}/>
         </div>
     )
 }

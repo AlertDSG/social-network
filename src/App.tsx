@@ -21,8 +21,7 @@ export const App = (props: PropsType ) => {
             <main className={'main'}>
                 <MenuLinks/>
                 <Content appState={state.getState()}
-                            addPostCallBack={state.addPost.bind(props.store)}
-                         upDateNewPostText={state.upDateNewPostText.bind(props.store)}  />
+                            dispatch={state.dispatch.bind(props.store)}/>
             </main>
             <footer>
                 <Footer/>

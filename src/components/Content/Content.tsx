@@ -1,7 +1,7 @@
 import React from 'react';
 import {Profile} from "./Profile/Profile";
 import {Dialogs} from "./Messages/Dialogs";
-import {Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom'
 import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Settings} from "./Settings/Settings";
@@ -10,15 +10,15 @@ import {RootStateType} from "../../redax/state";
 
 type StateProps = {
     appState: RootStateType
-    addPostCallBack: () => void
-    upDateNewPostText: (newText: string) => void
+    dispatch: (action: {type: 'ADD-POST', newText: string}) => void
 }
 
 
 export const Content = (props: StateProps) => {
     return (
             <Routes>
-                <Route path='/profile/*' element={<Profile postData={props.appState.profilePage.posts} />}/>
+                <Route path='/profile/*' element={<Profile postData={props.appState.profilePage.posts}
+                                                           dispatch={props.dispatch}/>}/>
                 <Route path='/dialogs/*'
                        element={<Dialogs messagesData={props.appState.dialogsPage}/>}/>
                 <Route path='/news/*' element={<News/>}/>
