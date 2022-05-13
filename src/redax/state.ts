@@ -1,8 +1,39 @@
 export type RootStateType = {
-
+    dialogsPage: DialogsType
+    profilePage: PostsType
+}
+export type StoreType = {
+    _state: RootStateType
+    addPost: () => void
+    getState: () => RootStateType
+    _callSubscriber: () => void
+    upDateNewPostText: (newText: string) => void
+    subscribe: (observer: () => void) => void
+}
+export type DialogsType = {
+    messages: MessageType[]
+    dialogs: DialogType[]
+}
+type MessageType = {
+    id: number
+    message: string
+}
+type DialogType = {
+    id: number
+    name: string
+}
+type PostsType = {
+    posts: PostType[]
+    newPostText: string
+}
+type PostType = {
+    id: number
+    message: string
+    likesCount: number
 }
 
-export const store = {
+
+export const store: StoreType = {
     _state: {
         dialogsPage: {
             messages: [
@@ -19,8 +50,8 @@ export const store = {
         },
         profilePage: {
             posts: [
-                {id: 1, message: 'Hi, how are you?', likeCount: 10},
-                {id: 1, message: 'Hi my friend', likeCount: 8},
+                {id: 1, message: 'Hi, how are you?', likesCount: 10},
+                {id: 1, message: 'Hi my friend', likesCount: 8},
             ],
             newPostText: ''
         }
@@ -42,11 +73,11 @@ export const store = {
         this._callSubscriber()
 
     },
-    upDateNewPostText(newText) {
+    upDateNewPostText(newText: string) {
         this._state.profilePage.newPostText = newText;
         this._callSubscriber();
     },
-    subscribe(observer) {
+    subscribe(observer: () => void) {
         this._callSubscriber = observer
     },
 }

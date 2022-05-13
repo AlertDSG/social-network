@@ -7,13 +7,13 @@ type MyPostsPropsType = {
 }
 type PostDataType = {
     id: number
-    text: string
+    message: string
     likesCount: number
 }
 
 export const MyPosts = (props:MyPostsPropsType) => {
 
-    const postItems = props.postData.map(el => <Post key={el.id} text={el.text} likesCount={el.likesCount}/>)
+    const postItems = props.postData.map(el => <Post key={el.id} text={el.message} likesCount={el.likesCount}/>)
 
     return (
         <div className={s.content}>

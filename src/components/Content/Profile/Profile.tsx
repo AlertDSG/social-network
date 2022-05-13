@@ -8,7 +8,7 @@ type ProfilePropsType = {
 }
 type PostDataType = {
     id: number
-    text: string
+    message: string
     likesCount: number
 }
 

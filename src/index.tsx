@@ -1,27 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import {App} from './App';
 import {BrowserRouter} from "react-router-dom";
 import {store} from "./redax/state"
 import reportWebVitals from './reportWebVitals';
 
 
-let rerenderEntireTree = (state: any) => {
+let rerenderEntireTree = () => {
+
     ReactDOM.render(
         <BrowserRouter>
             <React.StrictMode>
-                <App state={state}
-                     addpost={store.addPost.bind(store)}
-                     updateNewPostText={store.upDateNewPostText.bind(store)}/>
+                <App store={store}/>
             </React.StrictMode>
         </BrowserRouter>,
         document.getElementById('root')
     );
 }
+rerenderEntireTree();
 
 
-rerenderEntireTree(store.getState());
 store.subscribe(rerenderEntireTree);
 
 // If you want to start measuring performance in your app, pass a function
