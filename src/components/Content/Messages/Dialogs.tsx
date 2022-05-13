@@ -1,15 +1,33 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import s from "./Dialogs.module.css";
-import {DialogsType} from "../../../redax/state";
+import {ActionsType, addMessageAC, DialogsType} from "../../../redax/state";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./MessageItem/MessageItem";
 
+
 type DialogsPropsType = {
     messagesData: DialogsType
+    dispatch: (action : ActionsType) => void
 }
 
 
 export const Dialogs = (props: DialogsPropsType) => {
+
+    const [value, setValue] = useState<string>('')
+
+    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        if(e.currentTarget.value) {
+            setValue(e.currentTarget.value)
+        }
+    }
+
+    const onClickHandler = () => {
+        if(value.trim() !== '') {
+            let action = addMessageAC(value)
+            props.dispatch(action)
+            setValue('')
+        }
+    }
 
 
     const dialogItems = props.messagesData.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
@@ -27,7 +45,13 @@ export const Dialogs = (props: DialogsPropsType) => {
 
                 {messagesItems}
 
+                <textarea value={value} onChange={onChangeHandler}>Message</textarea>
+                <div className={s.button}>
+                    <button onClick={onClickHandler}>Add</button>
+                </div>
+
             </div>
+
         </section>
     )
 }

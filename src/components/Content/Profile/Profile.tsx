@@ -2,10 +2,11 @@ import React from "react";
 import s from "./Profile.module.css";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPosts} from "./MyPosts/MyPosts";
+import {ActionsType} from "../../../redax/state";
 
 type ProfilePropsType = {
     postData: Array<PostDataType>
-    dispatch: (action: {type: 'ADD-POST', newText: string}) => void
+    dispatch: (action : ActionsType) => void
 }
 type PostDataType = {
     id: string

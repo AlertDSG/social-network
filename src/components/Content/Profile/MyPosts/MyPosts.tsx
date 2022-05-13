@@ -1,11 +1,11 @@
 import React, {ChangeEvent, useState} from "react";
 import s from "../Profile.module.css";
 import {Post} from "./Post/Post";
-import {addPostAC} from "../../../../redax/state";
+import {ActionsType, addPostAC} from "../../../../redax/state";
 
 type MyPostsPropsType = {
     postData: Array<PostDataType>
-    dispatch: (action: {type: 'ADD-POST', newText: string}) => void
+    dispatch: (action : ActionsType) => void
 }
 type PostDataType = {
     id: string
@@ -16,6 +16,7 @@ type PostDataType = {
 
 
 export const MyPosts = (props: MyPostsPropsType) => {
+
     const [value, setValue] = useState<string>('')
 
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -32,6 +33,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
         }
     }
 
+
     const postItems = props.postData.map(el => <Post key={el.id} text={el.message} likesCount={el.likesCount}/>)
 
     return (
@@ -41,7 +43,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
                 <button onClick={onClickHandler}>Add</button>
             </div>
 
-            {postItems}
+                {postItems}
 
         </div>
     )

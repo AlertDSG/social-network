@@ -1,6 +1,7 @@
 import {v1} from "uuid";
 
 const ADD_POST = 'ADD-POST';
+const ADD_MESSAGE = 'ADD-MESSAGE';
 
 export type RootStateType = {
     dialogsPage: DialogsType
@@ -8,7 +9,7 @@ export type RootStateType = {
 }
 export type StoreType = {
     _state: RootStateType
-    addPost: (newText: string) => void
+    // addPost: (newText: string) => void
     getState: () => RootStateType
     _callSubscriber: () => void
     // upDateNewPostText: (newText: string) => void
@@ -41,6 +42,12 @@ export type AddPostActionCreatorType = {
     type: 'ADD-POST',
     newText: string
 }
+export type AddMessageActionCreatorType = {
+    type: 'ADD-MESSAGE',
+    message: string
+}
+
+export type ActionsType = AddPostActionCreatorType | AddMessageActionCreatorType
 
 export const store: StoreType = {
     _state: {
@@ -52,6 +59,7 @@ export const store: StoreType = {
                 {id: v1(), message: 'Hello'},
                 {id: v1(), message: 'Hello'},
             ],
+
             dialogs: [
                 {id: v1(), name: 'User1'},
                 {id: v1(), name: 'User2'}
@@ -74,17 +82,6 @@ export const store: StoreType = {
     subscribe(observer: () => void) {
         this._callSubscriber = observer
     },
-    addPost(newText) {
-        let newPost: { id: string; message: string; likesCount: number; } = {
-            id: v1(),
-            message: newText,
-            likesCount: 0
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber()
-
-    },
     dispatch(action) {
         if(action.type === ADD_POST) {
             let newPost: { id: string; message: string; likesCount: number; } = {
@@ -95,21 +92,30 @@ export const store: StoreType = {
             this._state.profilePage.posts.push(newPost);
             this._state.profilePage.newPostText = '';
             this._callSubscriber()
+        } else if(action.type === ADD_MESSAGE) {
+            const newMessage: { id: string; message: string;} = {
+                id: v1(),
+                message: action.message,
+            };
+
+            this._state.dialogsPage.messages.push(newMessage);
+            this._callSubscriber()
         }
-
     }
-    // upDateNewPostText(newText: string) {
-    //     this._state.profilePage.newPostText = newText;
-    //     this._callSubscriber();
-    // },
-
 }
 
-export const addPostAC = (value: string): AddPostActionCreatorType  => {
+export const addPostAC = (value: string): ActionsType  => {
 
     return {
         type: ADD_POST,
         newText: value
+    }
+}
+export const addMessageAC = (value: string): ActionsType  => {
+
+    return {
+        type: ADD_MESSAGE,
+        message: value
     }
 }
 
