@@ -1,7 +1,8 @@
 import React, {ChangeEvent, useState} from "react";
 import s from "../Profile.module.css";
 import {Post} from "./Post/Post";
-import {ActionsType, addPostAC} from "../../../../redax/state";
+import {ActionsType} from "../../../../redax/state";
+import {addPostAC} from "../../../../redax/profileReducer";
 
 type MyPostsPropsType = {
     postData: Array<PostDataType>
@@ -12,8 +13,6 @@ type PostDataType = {
     message: string
     likesCount: number
 }
-
-
 
 export const MyPosts = (props: MyPostsPropsType) => {
 

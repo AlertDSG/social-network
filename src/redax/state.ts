@@ -1,7 +1,7 @@
 import {v1} from "uuid";
+import {profileReducer} from "./profileReducer";
+import {dialogsReducer} from "./dialogsReducer";
 
-const ADD_POST = 'ADD-POST';
-const ADD_MESSAGE = 'ADD-MESSAGE';
 
 export type RootStateType = {
     dialogsPage: DialogsType
@@ -9,12 +9,10 @@ export type RootStateType = {
 }
 export type StoreType = {
     _state: RootStateType
-    // addPost: (newText: string) => void
     getState: () => RootStateType
     _callSubscriber: () => void
-    // upDateNewPostText: (newText: string) => void
     subscribe: (observer: () => void) => void
-    dispatch: (action: any) => void
+    dispatch: (action: ActionsType) => void
 }
 export type DialogsType = {
     messages: MessageType[]
@@ -28,7 +26,7 @@ type DialogType = {
     id: string
     name: string
 }
-type PostsType = {
+export type PostsType = {
     posts: PostType[]
     newPostText: string
 }
@@ -83,39 +81,12 @@ export const store: StoreType = {
         this._callSubscriber = observer
     },
     dispatch(action) {
-        if(action.type === ADD_POST) {
-            let newPost: { id: string; message: string; likesCount: number; } = {
-                id: v1(),
-                message: action.newText,
-                likesCount: 0
-            };
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber()
-        } else if(action.type === ADD_MESSAGE) {
-            const newMessage: { id: string; message: string;} = {
-                id: v1(),
-                message: action.message,
-            };
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
 
-            this._state.dialogsPage.messages.push(newMessage);
-            this._callSubscriber()
-        }
+        this._callSubscriber()
+
     }
 }
 
-export const addPostAC = (value: string): ActionsType  => {
-
-    return {
-        type: ADD_POST,
-        newText: value
-    }
-}
-export const addMessageAC = (value: string): ActionsType  => {
-
-    return {
-        type: ADD_MESSAGE,
-        message: value
-    }
-}
 
