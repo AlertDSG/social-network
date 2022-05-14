@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ActionsType, PostsType} from "./state";
+import {ActionsType, PostsType} from "./store";
 
 const ADD_POST = 'ADD-POST';
 export const profileReducer = (state: PostsType, action: ActionsType): PostsType => {

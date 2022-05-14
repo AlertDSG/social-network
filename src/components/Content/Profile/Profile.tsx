@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Profile.module.css";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPosts} from "./MyPosts/MyPosts";
-import {ActionsType} from "../../../redax/state";
+import {ActionsType} from "../../../redax/store";
 
 type ProfilePropsType = {
     postData: Array<PostDataType>

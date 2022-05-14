@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import s from "./Dialogs.module.css";
-import {ActionsType, DialogsType} from "../../../redax/state";
+import {ActionsType, DialogsType} from "../../../redax/store";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./MessageItem/MessageItem";
 import {addMessageAC} from "../../../redax/dialogsReducer";

@@ -5,7 +5,7 @@ import {Route, Routes} from 'react-router-dom'
 import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Settings} from "./Settings/Settings";
-import {ActionsType, RootStateType} from "../../redax/state";
+import {ActionsType, RootStateType} from "../../redax/store";
 
 
 type StateProps = {
