@@ -2,7 +2,16 @@ import {v1} from "uuid";
 import {ActionsType, PostsType} from "./store";
 
 const ADD_POST = 'ADD-POST';
-export const profileReducer = (state: PostsType, action: ActionsType): PostsType => {
+
+const initialState: PostsType = {
+    posts: [
+        {id: v1(), message: 'Hi, how are you?', likesCount: 10},
+        {id: v1(), message: 'Hi my friend', likesCount: 8},
+    ],
+    newPostText: ''
+}
+
+export const profileReducer = (state = initialState, action: ActionsType): PostsType => {
 
     switch (action.type){
         case ADD_POST:

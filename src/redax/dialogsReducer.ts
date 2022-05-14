@@ -3,7 +3,22 @@ import {ActionsType, DialogsType} from "./store";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 
-export const dialogsReducer = (state: DialogsType, action: ActionsType): DialogsType => {
+const initialState: DialogsType = {
+    messages: [
+        {id: v1(), message: 'Hello'},
+        {id: v1(), message: 'Hello'},
+        {id: v1(), message: 'Hello'},
+        {id: v1(), message: 'Hello'},
+        {id: v1(), message: 'Hello'},
+    ],
+
+    dialogs: [
+        {id: v1(), name: 'User1'},
+        {id: v1(), name: 'User2'}
+    ]
+}
+
+export const dialogsReducer = (state = initialState , action: ActionsType): DialogsType => {
     switch (action.type) {
         case ADD_MESSAGE:
             const newMessage: { id: string; message: string;} = {
