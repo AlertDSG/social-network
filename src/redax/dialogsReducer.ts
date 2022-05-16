@@ -25,8 +25,7 @@ export const dialogsReducer = (state = initialState , action: ActionsType): Dial
                 id: v1(),
                 message: action.message,
             };
-            state.messages.push(newMessage);
-            return state
+            return {...state, messages: [...state.messages, newMessage]}
         default:
             return state
     }

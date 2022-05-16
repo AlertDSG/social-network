@@ -1,14 +1,14 @@
 import React, {ChangeEvent, useState} from 'react';
 import s from "./Dialogs.module.css";
-import {ActionsType, DialogsType} from "../../../redax/store";
+import {DialogsType} from "../../../redax/store";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./MessageItem/MessageItem";
-import {addMessageAC} from "../../../redax/dialogsReducer";
+
 
 
 type DialogsPropsType = {
     messagesData: DialogsType
-    dispatch: (action : ActionsType) => void
+    addMessage: (value : string) => void
 }
 
 
@@ -24,8 +24,7 @@ export const Dialogs = (props: DialogsPropsType) => {
 
     const onClickHandler = () => {
         if(value.trim() !== '') {
-            let action = addMessageAC(value)
-            props.dispatch(action)
+            props.addMessage(value)
             setValue('')
         }
     }

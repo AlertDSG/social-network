@@ -1,12 +1,10 @@
 import React, {ChangeEvent, useState} from "react";
 import s from "../Profile.module.css";
 import {Post} from "./Post/Post";
-import {ActionsType} from "../../../../redax/store";
-import {addPostAC} from "../../../../redax/profileReducer";
 
 type MyPostsPropsType = {
     postData: Array<PostDataType>
-    dispatch: (action : ActionsType) => void
+    addPost: (value : string) => void
 }
 type PostDataType = {
     id: string
@@ -26,8 +24,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
 
     const onClickHandler = () => {
         if(value.trim() !== '') {
-            let action = addPostAC(value)
-            props.dispatch(action)
+            props.addPost(value)
             setValue('')
         }
     }

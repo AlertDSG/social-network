@@ -1,25 +1,18 @@
 import React from "react";
 import s from "./Profile.module.css";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {MyPosts} from "./MyPosts/MyPosts";
-import {ActionsType} from "../../../redax/store";
+import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
 
 type ProfilePropsType = {
-    postData: Array<PostDataType>
-    dispatch: (action : ActionsType) => void
-}
-type PostDataType = {
-    id: string
-    message: string
-    likesCount: number
-}
+    store: any
+ }
+
 
 export const Profile = (props: ProfilePropsType) => {
     return (
         <div className={s.contentBody}>
             <ProfileInfo/>
-            <MyPosts postData={props.postData}
-                     dispatch={props.dispatch}/>
+            <MyPostsContainer store={props.store}/>
         </div>
     )
 }

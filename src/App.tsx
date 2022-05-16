@@ -10,7 +10,6 @@ type PropsType = {
 }
 
 export const App = (props: PropsType ) => {
-    const state = props.store
 
     return (
         <div className="App-wrapper">
@@ -19,8 +18,7 @@ export const App = (props: PropsType ) => {
             </header>
             <main className={'main'}>
                 <MenuLinks/>
-                <Content appState={state.getState()}
-                            dispatch={state.dispatch.bind(props.store)}/>
+                <Content store={props.store}/>
             </main>
             <footer>
                 <Footer/>

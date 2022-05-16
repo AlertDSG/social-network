@@ -8,7 +8,6 @@ const initialState: PostsType = {
         {id: v1(), message: 'Hi, how are you?', likesCount: 10},
         {id: v1(), message: 'Hi my friend', likesCount: 8},
     ],
-    newPostText: ''
 }
 
 export const profileReducer = (state = initialState, action: ActionsType): PostsType => {
@@ -20,8 +19,7 @@ export const profileReducer = (state = initialState, action: ActionsType): Posts
                 message: action.newText,
                 likesCount: 0
             };
-            state.posts.push(newPost);
-            return state;
+            return {...state, posts: [...state.posts, newPost]};
         default:
             return state
     }
