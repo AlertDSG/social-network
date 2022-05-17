@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {addMessageAC} from "../../../redax/dialogsReducer";
+import {addMessageAC} from "../../../redux/dialogsReducer";
 import {Dialogs} from "./Dialogs";
 
 const mapStateToProps = (state: any) => {

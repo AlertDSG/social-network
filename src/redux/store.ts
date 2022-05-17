@@ -40,7 +40,7 @@ export type AddMessageActionCreatorType = {
     message: string
 }
 
-export type ActionsType = AddPostActionCreatorType | AddMessageActionCreatorType
+type ActionsType = AddPostActionCreatorType | AddMessageActionCreatorType
 
 // const store: StoreType = {
 //     _state: {

@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ActionsType, DialogsType} from "./store";
+import {ActionsType, DialogsType} from "./AllTypeProject";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
 

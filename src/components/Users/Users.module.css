@@ -1,0 +1,15 @@
+.bodyPage {
+    padding: 20px;
+}
+
+.bodyUser{
+    padding: 20px;
+    display: flex;
+    gap: 50px;
+}
+.userInfo {
+    border: 1px solid gray;
+    display: flex;
+    gap: 50px;
+    padding: 15px;
+}

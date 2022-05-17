@@ -14,6 +14,10 @@ export const MenuLinks = () => {
                     Message
                 </NavLink>
                 </li>
+                <li><NavLink to='/users' className={navData => navData.isActive ? s.active : s.item}>
+                    Users
+                </NavLink>
+                </li>
                 <li><NavLink to='/news' className={navData => navData.isActive ? s.active : s.item}>
                     News
                 </NavLink>

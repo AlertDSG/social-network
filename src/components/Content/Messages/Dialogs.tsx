@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import s from "./Dialogs.module.css";
-import {DialogsType} from "../../../redax/store";
+import {DialogsType} from "../../../redux/store";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./MessageItem/MessageItem";
 

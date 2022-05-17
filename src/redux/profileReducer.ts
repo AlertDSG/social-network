@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ActionsType, PostsType} from "./store";
+import {ActionsType, PostsType} from "./AllTypeProject";
 
 const ADD_POST = 'ADD-POST';
 
