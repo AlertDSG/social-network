@@ -5,11 +5,8 @@ import {Content} from "./components/Content/Content";
 import {Footer} from "./components/Footer/Footer";
 import {MenuLinks} from "./components/MenuLinks/MenuLinks";
 
-type PropsType = {
-    store: any
-}
 
-export const App = (props: PropsType ) => {
+export const App = () => {
 
     return (
         <div className="App-wrapper">
@@ -18,7 +15,7 @@ export const App = (props: PropsType ) => {
             </header>
             <main className={'main'}>
                 <MenuLinks/>
-                <Content store={props.store}/>
+                <Content/>
             </main>
             <footer>
                 <Footer/>

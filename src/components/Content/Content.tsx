@@ -7,19 +7,14 @@ import {Settings} from "./Settings/Settings";
 import {DialogsContainer} from "./Messages/DialogsContainer";
 
 
-type StateProps = {
-    // appState: RootStateType
-    // dispatch: (action : ActionsType) => void
-    store: any
-}
 
 
-export const Content = (props: StateProps) => {
+export const Content = () => {
     return (
             <Routes>
-                <Route path='/profile/*' element={<Profile store={props.store}/>}/>
+                <Route path='/profile/*' element={<Profile/>}/>
                 <Route path='/dialogs/*'
-                       element={<DialogsContainer store={props.store}/>}/>
+                       element={<DialogsContainer/>}/>
                 <Route path='/news/*' element={<News/>}/>
                 <Route path='/music/*' element={<Music/>}/>
                 <Route path='/settings/*' element={<Settings/>}/>

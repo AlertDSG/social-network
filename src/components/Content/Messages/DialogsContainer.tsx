@@ -1,24 +1,19 @@
-import React from 'react';
+import {connect} from 'react-redux';
 import {addMessageAC} from "../../../redax/dialogsReducer";
 import {Dialogs} from "./Dialogs";
 
-
-type DialogsPropsType = {
-    // messagesData: DialogsType
-    // dispatch: (action: ActionsType) => void
-    store: any
-}
-
-
-export const DialogsContainer = (props: DialogsPropsType) => {
-
-
-    const onClickHandler = (value: string) => {
-
-        let action = addMessageAC(value)
-        props.store.dispatch(action)
+const mapStateToProps = (state: any) => {
+    return {
+        messagesData: state.dialogsPage
     }
-
-
-    return (<Dialogs messagesData={props.store.getState().dialogsPage} addMessage={onClickHandler}/>)
 }
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        addMessage: (value: string) => {
+            let action = addMessageAC(value)
+            dispatch(action)
+        }
+    }
+}
+
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
