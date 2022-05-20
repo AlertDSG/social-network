@@ -10,6 +10,10 @@ type UsersUIPropsType = {
 }
 
 export const Users = (props: UsersUIPropsType) => {
+    const onClickHandler = (uID: string, value: boolean) => {
+      props.changeFollowedStatus(uID, value)
+    }
+
     return (
         <div className={s.bodyPage}>
             {props.users.map(u => {
@@ -19,7 +23,7 @@ export const Users = (props: UsersUIPropsType) => {
                         <div>
                             <img src="/" alt="ava"/>
                             <div>
-                                <button>followed</button>
+                                <button onClick={()=>onClickHandler(u.id, !u.followed)}>{u.followed ? `followed` : `unfollowed`}</button>
                             </div>
                         </div>
                         <div className={s.userInfo}>
