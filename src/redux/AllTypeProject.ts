@@ -49,8 +49,18 @@ type StateActionType = {
     type: 'NEW_STATE',
     newState: UserType[]
 }
+type SetCurrentPageActionType = {
+    type: 'SET_CURRENT_PAGE',
+    currentPage: number
+}
+type SetTotalCountActionType = {
+    type: 'SET_TOTAL_COUNT',
+    totalCount: number
+}
 
 export type ActionsType = AddPostActionCreatorType
     | AddMessageActionCreatorType
     | StatusFollowedActionCreatorType
     | StateActionType
+    | SetCurrentPageActionType
+    | SetTotalCountActionType
