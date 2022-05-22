@@ -5,7 +5,8 @@ import {News} from "./News/News";
 import {Music} from "./Music/Music";
 import {Settings} from "./Settings/Settings";
 import {DialogsContainer} from "./Messages/DialogsContainer";
-import {UsersContainer} from "../Users/UsersContainer";
+import {UsersContainer} from "../Users/UsersContainer"
+
 
 
 

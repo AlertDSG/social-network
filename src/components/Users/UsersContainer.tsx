@@ -1,16 +1,27 @@
 import {connect} from "react-redux";
 import {Users} from "./Users";
-import {followAC} from "../../redux/usersReducer";
+import {followAC, InitialStateType, stateAC, UserType} from "../../redux/usersReducer";
+import {AppStateType} from "../../redux/redux-store";
+import {Dispatch} from "redux";
 
-const mapStateToProps = (state: any) => {
+type MapDispatchPropsType = {
+    changeFollowedStatus: (uID: number, value: boolean) => void
+    setNewState: (newState: UserType[]) => void
+}
+
+const mapStateToProps = (state: AppStateType): InitialStateType => {
     return {
-        users: state.usersPage.users
+        items: state.usersPage.items
     }
 }
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
     return {
-        changeFollowedStatus: (uID: string, value: boolean) => {
+        changeFollowedStatus: (uID: number, value: boolean) => {
             let action = followAC(uID, value)
+            dispatch(action)
+        },
+        setNewState: (newState: UserType[]) => {
+            let action = stateAC(newState)
             dispatch(action)
         }
     }

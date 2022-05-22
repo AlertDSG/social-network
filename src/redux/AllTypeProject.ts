@@ -1,3 +1,5 @@
+import {UserType} from "./usersReducer";
+
 export type RootStateType = {
     dialogsPage: DialogsType
     profilePage: PostsType
@@ -40,8 +42,15 @@ type AddMessageActionCreatorType = {
 }
 type StatusFollowedActionCreatorType = {
     type: 'STATUS-FOLLOWED',
-    userID: string
+    userID: number
     followed: boolean
 }
+type StateActionType = {
+    type: 'NEW_STATE',
+    newState: UserType[]
+}
 
-export type ActionsType = AddPostActionCreatorType | AddMessageActionCreatorType | StatusFollowedActionCreatorType
+export type ActionsType = AddPostActionCreatorType
+    | AddMessageActionCreatorType
+    | StatusFollowedActionCreatorType
+    | StateActionType
