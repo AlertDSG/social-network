@@ -4,7 +4,7 @@ import {followAC, InitialStateType, stateAC, UserType} from "../../redux/usersRe
 import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
 
-type MapDispatchPropsType = {
+export type MapDispatchPropsType = {
     changeFollowedStatus: (uID: number, value: boolean) => void
     setNewState: (newState: UserType[]) => void
 }
