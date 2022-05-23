@@ -1,4 +1,5 @@
 import {UserType} from "./usersReducer";
+import {ProfileGetAPIType} from "../components/Content/Profile/ProfileContainer";
 
 export type RootStateType = {
     dialogsPage: DialogsType
@@ -61,6 +62,10 @@ type SetIsFetchingActionType = {
     type: 'SET_IS_FETCHING',
     isFetching: boolean
 }
+type SetStateProfileAT = {
+    type: 'SET_STATE_PROFILE',
+    data: ProfileGetAPIType
+}
 
 export type ActionsType = AddPostActionCreatorType
     | AddMessageActionCreatorType
@@ -69,3 +74,4 @@ export type ActionsType = AddPostActionCreatorType
     | SetCurrentPageActionType
     | SetTotalCountActionType
     | SetIsFetchingActionType
+    | SetStateProfileAT

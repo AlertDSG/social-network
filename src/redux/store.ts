@@ -22,7 +22,7 @@ type DialogType = {
     id: string
     name: string
 }
-export type PostsType = {
+type PostsType = {
     posts: PostType[]
 }
 type PostType = {
