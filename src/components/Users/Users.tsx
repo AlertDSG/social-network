@@ -1,6 +1,7 @@
 import React from 'react';
 import s from "./Users.module.css";
 import {UserType} from "../../redux/usersReducer";
+import avatar from '../../assets/images/avatar.png'
 
 type UsersPropsType = {
     items: UserType[]
@@ -43,7 +44,7 @@ export const Users = (props: UsersPropsType) => {
                     return (
                         <div key={u.id} className={s.bodyUser}>
                             <div>
-                                <img src='' alt="ava"/>
+                                <img className={s.image} src={u.photos.small === null? avatar: u.photos.small} alt="ava"/>
                                 <div>
                                     <button
                                         onClick={() => onClickHandler(u.id, !u.followed)}>{u.followed ? `followed` : `unfollowed`}</button>

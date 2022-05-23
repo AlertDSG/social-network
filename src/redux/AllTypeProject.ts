@@ -57,6 +57,10 @@ type SetTotalCountActionType = {
     type: 'SET_TOTAL_COUNT',
     totalCount: number
 }
+type SetIsFetchingActionType = {
+    type: 'SET_IS_FETCHING',
+    isFetching: boolean
+}
 
 export type ActionsType = AddPostActionCreatorType
     | AddMessageActionCreatorType
@@ -64,3 +68,4 @@ export type ActionsType = AddPostActionCreatorType
     | StateActionType
     | SetCurrentPageActionType
     | SetTotalCountActionType
+    | SetIsFetchingActionType

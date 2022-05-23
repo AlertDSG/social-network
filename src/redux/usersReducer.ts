@@ -4,6 +4,7 @@ const STATUS_FOLLOWED = 'STATUS-FOLLOWED';
 const NEW_STATE = 'NEW_STATE';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
+const SET_IS_FETCHING = 'SET_IS_FETCHING';
 
 export type UserType = {
     id: number
@@ -21,13 +22,15 @@ export type InitialStateType = {
     pageSize: number
     totalCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 const initialState: InitialStateType = {
     items: [],
     pageSize: 10,
     totalCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 }
 
 export const usersReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
@@ -47,6 +50,10 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
         case SET_TOTAL_COUNT:
             return {
             ...state, totalCount: action.totalCount
+        }
+        case "SET_IS_FETCHING":
+            return {
+            ...state, isFetching: action.isFetching
         }
         default:
             return state
@@ -82,6 +89,14 @@ export const setTotalCountAC = (totalCount: number): ActionsType => {
     return {
         type: SET_TOTAL_COUNT,
         totalCount: totalCount,
+
+    }
+}
+export const setIsFetchingAC = (value: boolean): ActionsType => {
+
+    return {
+        type: SET_IS_FETCHING,
+        isFetching: value,
 
     }
 }

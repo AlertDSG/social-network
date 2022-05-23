@@ -2,17 +2,24 @@
     padding: 20px;
 }
 
-.bodyUser{
+.bodyUser {
     padding: 20px;
     display: flex;
     gap: 50px;
 }
+
 .userInfo {
     border: 1px solid gray;
     display: flex;
     gap: 50px;
     padding: 15px;
 }
+
 .selectedPage {
     font-weight: bold;
+}
+
+.image {
+    width: 90px;
+    height: 90px;
 }
