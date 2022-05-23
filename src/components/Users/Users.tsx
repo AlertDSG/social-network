@@ -9,7 +9,7 @@ type UsersPropsType = {
     totalCount: number
     currentPage: number
     changeFollowedStatus: (uID: number, value: boolean) => void
-    onClickPageHandler: (page: number)=> void
+    onClickPageHandler: (page: number) => void
 }
 
 export const Users = (props: UsersPropsType) => {
@@ -19,7 +19,7 @@ export const Users = (props: UsersPropsType) => {
         pages.push(i)
     }
 
-   const onClickHandler = (uID: number, value: boolean) => {
+    const onClickHandler = (uID: number, value: boolean) => {
         props.changeFollowedStatus(uID, value)
     }
 
@@ -44,7 +44,8 @@ export const Users = (props: UsersPropsType) => {
                     return (
                         <div key={u.id} className={s.bodyUser}>
                             <div>
-                                <img className={s.image} src={u.photos.small === null? avatar: u.photos.small} alt="ava"/>
+                                <img className={s.image} src={u.photos.small === null ? avatar : u.photos.small}
+                                     alt="ava"/>
                                 <div>
                                     <button
                                         onClick={() => onClickHandler(u.id, !u.followed)}>{u.followed ? `followed` : `unfollowed`}</button>
