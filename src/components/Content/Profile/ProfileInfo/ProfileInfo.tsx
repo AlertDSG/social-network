@@ -1,14 +1,16 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
-import {ProfileGetAPIType} from "../ProfileContainer";
 import avatar from '../../../../assets/images/avatar.png';
 
 type ProfileInfoType = {
-    data: ProfileGetAPIType
+    data: any
 }
 
 export const ProfileInfo = (props: ProfileInfoType) => {
+
+
     return (
+
         <div>
             <div className={s.poster}>
                 <img
@@ -16,7 +18,10 @@ export const ProfileInfo = (props: ProfileInfoType) => {
                     alt="img"/>
             </div>
             <div className={s.ava}>
-                <img src={props.data.photos.large !== null ? props.data.photos.large : avatar} alt={'avatar'}/>
+                <img src={avatar} alt={'avatar'}/>
+                <span>{props.data.aboutMe}</span>
+                <span>{props.data.fullName}</span>
+                <span>{props.data.lookingForAJobDescription}</span>
             </div>
         </div>
 

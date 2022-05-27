@@ -1,5 +1,5 @@
 import {UserType} from "./usersReducer";
-import {ProfileGetAPIType} from "../components/Content/Profile/ProfileContainer";
+import {ProfileGetAPIType} from "./profileReducer";
 
 export type RootStateType = {
     dialogsPage: DialogsType

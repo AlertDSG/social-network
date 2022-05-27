@@ -2,7 +2,8 @@ import React from "react";
 import s from "./Profile.module.css";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import { MyPostsContainer } from "./MyPosts/MyPostsContainer";
-import {ProfileGetAPIType} from "./ProfileContainer";
+import {ProfileGetAPIType} from "../../../redux/profileReducer";
+
 
 type ProfileType = {
     data: ProfileGetAPIType

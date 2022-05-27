@@ -2,29 +2,10 @@ import React from "react";
 import {Profile} from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {setStateProfile} from "../../../redux/profileReducer";
+import {InitialProfileStateType, ProfileGetAPIType, setStateProfile} from "../../../redux/profileReducer";
 import {AppStateType} from "../../../redux/redux-store";
 
- export type ProfileGetAPIType = {
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: {
-        github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter: string
-        website: string
-        youtube: string
-        mainLink: string
-    }
-    photos: {
-        small: string | null
-        large: string | null
-    }
-}
+
 
 export type ClassType = {
     setStateProfile: (data: ProfileGetAPIType) => void
@@ -34,21 +15,27 @@ export type ClassType = {
 class ProfileClassContainer extends React.Component<ClassType> {
 
     componentDidMount() {
-        axios.get<ProfileGetAPIType>(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/profile/2`)
             .then(response => {
+                console.log(response.data.photos.small)
+                console.log(response.data)
                 this.props.setStateProfile(response.data)
             })
     }
 
-    render () {
-       return <Profile data={this.props.data}/>
+    render() {
+        return <Profile data={this.props.data}/>
     }
 }
 
- const mapStateToProps = (state: AppStateType): {data: ProfileGetAPIType} => {
-     return {
-         data: state.profilePage.data
-     }
- }
+const mapStateToProps = (state: AppStateType): InitialProfileStateType => {
+    return {
+        data: state.profilePage.data,
+        posts:state.profilePage.posts
+    }
+}
 
-export const ProfileContainer = connect(mapStateToProps,{setStateProfile})(ProfileClassContainer)
+
+
+export const ProfileContainer = connect(mapStateToProps, {setStateProfile})(ProfileClassContainer)
+

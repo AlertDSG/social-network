@@ -51,7 +51,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
             return {
             ...state, totalCount: action.totalCount
         }
-        case "SET_IS_FETCHING":
+        case SET_IS_FETCHING:
             return {
             ...state, isFetching: action.isFetching
         }

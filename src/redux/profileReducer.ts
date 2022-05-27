@@ -1,26 +1,45 @@
 import {ActionsType} from "./AllTypeProject";
-import {ProfileGetAPIType} from "../components/Content/Profile/ProfileContainer";
 
 const ADD_POST = 'ADD-POST';
 const SET_STATE_PROFILE = 'SET_STATE_PROFILE';
 
+type ContactsType ={
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+type PhotoType = {
+    small: string
+    large: string
+}
 
+export type ProfileGetAPIType = {
+    userId: number
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: ContactsType
+    photos: PhotoType
+}
 type PostType = {
     id: number
     message: string
     likesCount: number
 }
-type InitialProfileStateType = {
+export type InitialProfileStateType = {
     posts: PostType[]
-    data: ProfileGetAPIType | null
+    data: any
 }
 
 const initialState: InitialProfileStateType = {
-    posts: [
-        {id: 1, message: 'Hi, how are you?', likesCount: 10},
-        {id: 2, message: 'Hi my friend', likesCount: 8},
-    ],
-    data: null
+    posts: [],
+    data: {}
 }
 
 export const profileReducer = (state = initialState, action: ActionsType): InitialProfileStateType => {
@@ -33,10 +52,10 @@ export const profileReducer = (state = initialState, action: ActionsType): Initi
                 likesCount: 0
             };
             return {...state, posts: [...state.posts, newPost]};
-        case "SET_STATE_PROFILE":
+        case SET_STATE_PROFILE:
             return {
-            ...state, data: action.data
-        }
+                ...state, data: {...action.data}
+            }
         default:
             return state
     }
@@ -48,7 +67,7 @@ export const addPostAC = (value: string): ActionsType => {
         newText: value
     }
 }
-export const setStateProfile = (data: ProfileGetAPIType): ActionsType => {
+export const setStateProfile = (data: any): ActionsType => {
     return {
         type: SET_STATE_PROFILE,
         data: data
