@@ -10,6 +10,7 @@ type ProfileType = {
 }
 
 export const Profile = (props: ProfileType) => {
+
     return (
         <div className={s.contentBody}>
             <ProfileInfo data={props.data}/>
