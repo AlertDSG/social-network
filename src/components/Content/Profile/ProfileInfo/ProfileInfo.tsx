@@ -1,13 +1,17 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
 import avatar from '../../../../assets/images/avatar.png';
+import {ProfileGetAPIType} from "../../../../redux/profileReducer";
+import {Preloader} from "../../../common/Preloader/Preloader";
 
 type ProfileInfoType = {
-    data: any
+    data: ProfileGetAPIType | null
 }
 
 export const ProfileInfo = (props: ProfileInfoType) => {
-
+    if (!props.data) {
+        return <Preloader/>
+    }
 
     return (
 
@@ -18,7 +22,7 @@ export const ProfileInfo = (props: ProfileInfoType) => {
                     alt="img"/>
             </div>
             <div className={s.ava}>
-                <img src={avatar} alt={'avatar'}/>
+                <img src={props.data.photos.large !== null ? props.data.photos.large : avatar} alt={'avatar'}/>
                 <span>{props.data.aboutMe}</span>
                 <span>{props.data.fullName}</span>
                 <span>{props.data.lookingForAJobDescription}</span>

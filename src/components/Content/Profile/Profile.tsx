@@ -6,7 +6,7 @@ import {ProfileGetAPIType} from "../../../redux/profileReducer";
 
 
 type ProfileType = {
-    data: ProfileGetAPIType
+    data: ProfileGetAPIType | null
 }
 
 export const Profile = (props: ProfileType) => {

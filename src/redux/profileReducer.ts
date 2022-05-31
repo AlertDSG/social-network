@@ -34,12 +34,12 @@ type PostType = {
 }
 export type InitialProfileStateType = {
     posts: PostType[]
-    data: any
+    data: ProfileGetAPIType | null
 }
 
 const initialState: InitialProfileStateType = {
     posts: [],
-    data: {}
+    data: null
 }
 
 export const profileReducer = (state = initialState, action: ActionsType): InitialProfileStateType => {
@@ -54,7 +54,7 @@ export const profileReducer = (state = initialState, action: ActionsType): Initi
             return {...state, posts: [...state.posts, newPost]};
         case SET_STATE_PROFILE:
             return {
-                ...state, data: {...action.data}
+                ...state, data: action.data
             }
         default:
             return state
@@ -67,9 +67,9 @@ export const addPostAC = (value: string): ActionsType => {
         newText: value
     }
 }
-export const setStateProfile = (data: any): ActionsType => {
+export const setStateProfile = (data: ProfileGetAPIType): ActionsType => {
     return {
         type: SET_STATE_PROFILE,
-        data: data
+        data
     }
 }

@@ -2,23 +2,27 @@ import React from "react";
 import {Profile} from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {InitialProfileStateType, ProfileGetAPIType, setStateProfile} from "../../../redux/profileReducer";
+import {ProfileGetAPIType, setStateProfile} from "../../../redux/profileReducer";
 import {AppStateType} from "../../../redux/redux-store";
 
 
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 
-export type ClassType = {
+type MapDispatchToPropsType = {
     setStateProfile: (data: ProfileGetAPIType) => void
-    data: ProfileGetAPIType
 }
 
-class ProfileClassContainer extends React.Component<ClassType> {
+type OwnProps = {
+
+}
+
+type ClassPropsType = MapStateToPropsType & MapDispatchToPropsType & OwnProps
+
+class ProfileClassContainer extends React.Component<ClassPropsType> {
 
     componentDidMount() {
         axios.get<any>(`https://social-network.samuraijs.com/api/1.0/profile/2`)
             .then(response => {
-                console.log(response.data.photos.small)
-                console.log(response.data)
                 this.props.setStateProfile(response.data)
             })
     }
@@ -28,14 +32,13 @@ class ProfileClassContainer extends React.Component<ClassType> {
     }
 }
 
-const mapStateToProps = (state: AppStateType): InitialProfileStateType => {
+const mapStateToProps = (state: AppStateType) => {
     return {
-        data: state.profilePage.data,
-        posts:state.profilePage.posts
-    }
+        data: state.profilePage.data
+    } as const
 }
 
 
 
-export const ProfileContainer = connect(mapStateToProps, {setStateProfile})(ProfileClassContainer)
+export const ProfileContainer = connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(mapStateToProps, {setStateProfile})(ProfileClassContainer)
 
