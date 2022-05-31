@@ -1,5 +1,6 @@
 import {UserType} from "./usersReducer";
 import {ProfileGetAPIType} from "./profileReducer";
+import {UserAuthType} from "./authReducer";
 
 export type RootStateType = {
     dialogsPage: DialogsType
@@ -66,6 +67,10 @@ type SetStateProfileAT = {
     type: 'SET_STATE_PROFILE',
     data: ProfileGetAPIType
 }
+type SetUserDataAT = {
+    type: 'SET_USER_DATA',
+    data: UserAuthType
+}
 
 export type ActionsType = AddPostActionCreatorType
     | AddMessageActionCreatorType
@@ -75,3 +80,4 @@ export type ActionsType = AddPostActionCreatorType
     | SetTotalCountActionType
     | SetIsFetchingActionType
     | SetStateProfileAT
+    | SetUserDataAT
