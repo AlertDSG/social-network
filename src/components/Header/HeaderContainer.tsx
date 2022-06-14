@@ -17,11 +17,15 @@ type OwnProps = {}
 
 const HeaderContainer = (props: HeaderContainerPropsType) => {
     useEffect(() => {
-        axios.get<{ data: UserAuthType }>(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
+
+        axios.get<{
+            data: UserAuthType
+            resultCode: number
+        }>(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
             withCredentials: true
         })
             .then(response => {
-                props.setUserData(response.data.data)
+                !response.data.resultCode && props.setUserData(response.data.data)
             })
     }, [])
     return <Header loginUser={props.loginUser} isAuth={props.isAuth}/>;
