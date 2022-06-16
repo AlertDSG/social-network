@@ -1,11 +1,12 @@
 import {ActionsType} from "./AllTypeProject";
+import {usersAPI} from "../api/api";
 
 const STATUS_FOLLOWED = 'STATUS-FOLLOWED';
 const NEW_STATE = 'NEW_STATE';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 const SET_IS_FETCHING = 'SET_IS_FETCHING';
-const FOLLOWING_IN_PROGRESS = 'FOLLOWING_IN_PROGRESS';
+
 
 export type UserType = {
     id: number
@@ -68,7 +69,6 @@ export const follow = (uID: number, value: boolean): ActionsType => {
         followed: value
     }
 }
-
 export const setState = (newState: UserType[]): ActionsType => {
 
     return {
@@ -95,5 +95,19 @@ export const setIsFetching = (value: boolean): ActionsType => {
     return {
         type: SET_IS_FETCHING,
         isFetching: value,
+    }
+}
+
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+    return (dispatch: any) => {
+        dispatch(setIsFetching(true))
+
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(setIsFetching(false))
+                dispatch(setState(data.items))
+                dispatch(setTotalCount(data.totalCount))
+            })
     }
 }
