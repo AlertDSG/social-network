@@ -2,14 +2,15 @@ import {connect} from "react-redux";
 import {
     follow,
     InitialStateType, setCurrentPage,
-     setIsFetching, setState, setTotalCount,
+    setIsFetching, setState, setTotalCount,
     UserType
 } from '../../redux/usersReducer';
 import {AppStateType} from '../../redux/redux-store';
 import React from 'react';
-import axios from 'axios';
+
 import {Users} from './Users';
 import {Preloader} from "../common/Preloader/Preloader";
+import {usersAPI} from "../../api/api";
 
 type UsersUIPropsType = {
     items: UserType[]
@@ -28,37 +29,34 @@ class UsersClassContainer extends React.Component<UsersUIPropsType> {
 
     componentDidMount() {
         this.props.setIsFetching(true)
-        axios.get<InitialStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-            withCredentials: true
-        })
-            .then(response => {
+
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.setIsFetching(false)
-                this.props.setState(response.data.items)
-                this.props.setTotalCount(response.data.totalCount)
+                this.props.setState(data.items)
+                this.props.setTotalCount(data.totalCount)
             })
     }
 
     onClickPageHandler = (page: number) => {
         this.props.setCurrentPage(page)
         this.props.setIsFetching(true)
-        axios.get<InitialStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`,{
-            withCredentials: true
+
+        usersAPI.getUsers(page, this.props.pageSize).then(data => {
+            this.props.setIsFetching(false)
+            this.props.setState(data.items)
         })
-            .then(response => {
-                this.props.setIsFetching(false)
-                this.props.setState(response.data.items)
-            })
     }
 
     render() {
 
         return <>
             {this.props.isFetching ? <Preloader/> : <Users totalCount={this.props.totalCount}
-                                                     pageSize={this.props.pageSize}
-                                                     changeFollowedStatus={this.props.follow}
-                                                     currentPage={this.props.currentPage}
-                                                     onClickPageHandler={this.onClickPageHandler}
-                                                     items={this.props.items}/>}
+                                                           pageSize={this.props.pageSize}
+                                                           changeFollowedStatus={this.props.follow}
+                                                           currentPage={this.props.currentPage}
+                                                           onClickPageHandler={this.onClickPageHandler}
+                                                           items={this.props.items}/>}
 
         </>
     }
@@ -71,8 +69,14 @@ const mapStateToProps = (state: AppStateType): InitialStateType => {
         pageSize: state.usersPage.pageSize,
         totalCount: state.usersPage.totalCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, {follow, setState, setCurrentPage, setTotalCount, setIsFetching})(UsersClassContainer)
+export const UsersContainer = connect(mapStateToProps, {
+    follow,
+    setState,
+    setCurrentPage,
+    setTotalCount,
+    setIsFetching,
+})(UsersClassContainer)

@@ -5,6 +5,7 @@ const NEW_STATE = 'NEW_STATE';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 const SET_IS_FETCHING = 'SET_IS_FETCHING';
+const FOLLOWING_IN_PROGRESS = 'FOLLOWING_IN_PROGRESS';
 
 export type UserType = {
     id: number
@@ -30,13 +31,12 @@ const initialState: InitialStateType = {
     pageSize: 10,
     totalCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
 }
 
 export const usersReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case STATUS_FOLLOWED:
-
             return {
                 ...state,
                 items: state.items.map(u => u.id === action.userID ? {...u, followed: action.followed} : u)

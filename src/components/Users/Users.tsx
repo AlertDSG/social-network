@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from "./Users.module.css";
 import {UserType} from "../../redux/usersReducer";
 import avatar from '../../assets/images/avatar.png'
@@ -16,6 +16,9 @@ type UsersPropsType = {
 
 
 export const Users = (props: UsersPropsType) => {
+
+    const [disabled, setDisabled] = useState<number | null>(null)
+
     let pagesCount = Math.ceil(props.totalCount / props.pageSize)
     const pages = []
     for (let i = 1; i <= pagesCount; i++) {
@@ -23,30 +26,38 @@ export const Users = (props: UsersPropsType) => {
     }
 
     const onClickHandlerFollow = (uID: number) => {
+        setDisabled(uID)
         axios.post<any>(`https://social-network.samuraijs.com/api/1.0/follow/${uID}`, {}, {
             withCredentials: true,
             headers: {
-                "API-KEY" : "daa5219f-4bd1-4a25-b139-227a461bb757"
+                "API-KEY": "daa5219f-4bd1-4a25-b139-227a461bb757"
             }
         })
             .then(res => {
                 if (res.data.resultCode === 0) {
                     props.changeFollowedStatus(uID, true)
                 }
+                setDisabled(null)
             })
+
     }
+
     const onClickHandlerUnFollow = (uID: number) => {
+        setDisabled(uID)
+
         axios.delete<any>(`https://social-network.samuraijs.com/api/1.0/follow/${uID}`, {
             withCredentials: true,
             headers: {
-                "API-KEY" : "daa5219f-4bd1-4a25-b139-227a461bb757"
+                "API-KEY": "daa5219f-4bd1-4a25-b139-227a461bb757"
             }
         })
             .then(res => {
                 if (res.data.resultCode === 0) {
                     props.changeFollowedStatus(uID, false)
                 }
+                setDisabled(null)
             })
+
     }
 
     return (
@@ -79,10 +90,12 @@ export const Users = (props: UsersPropsType) => {
                                         u.followed
                                             ?
                                             <button
+                                                disabled={disabled === u.id && true}
                                                 onClick={() => onClickHandlerUnFollow(u.id)}>{`Unfollowed`}
                                             </button>
                                             :
                                             <button
+                                                disabled={disabled === u.id && true}
                                                 onClick={() => onClickHandlerFollow(u.id)}>{`Followed`}
                                             </button>
                                     }
