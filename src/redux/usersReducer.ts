@@ -68,6 +68,7 @@ export const follow = (uID: number, value: boolean): ActionsType => {
         followed: value
     }
 }
+
 export const setState = (newState: UserType[]): ActionsType => {
 
     return {

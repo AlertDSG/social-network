@@ -3,6 +3,7 @@ import s from "./Users.module.css";
 import {UserType} from "../../redux/usersReducer";
 import avatar from '../../assets/images/avatar.png'
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 type UsersPropsType = {
     items: UserType[]
@@ -13,6 +14,7 @@ type UsersPropsType = {
     onClickPageHandler: (page: number) => void
 }
 
+
 export const Users = (props: UsersPropsType) => {
     let pagesCount = Math.ceil(props.totalCount / props.pageSize)
     const pages = []
@@ -20,8 +22,31 @@ export const Users = (props: UsersPropsType) => {
         pages.push(i)
     }
 
-    const onClickHandler = (uID: number, value: boolean) => {
-        props.changeFollowedStatus(uID, value)
+    const onClickHandlerFollow = (uID: number) => {
+        axios.post<any>(`https://social-network.samuraijs.com/api/1.0/follow/${uID}`, {}, {
+            withCredentials: true,
+            headers: {
+                "API-KEY" : "daa5219f-4bd1-4a25-b139-227a461bb757"
+            }
+        })
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    props.changeFollowedStatus(uID, true)
+                }
+            })
+    }
+    const onClickHandlerUnFollow = (uID: number) => {
+        axios.delete<any>(`https://social-network.samuraijs.com/api/1.0/follow/${uID}`, {
+            withCredentials: true,
+            headers: {
+                "API-KEY" : "daa5219f-4bd1-4a25-b139-227a461bb757"
+            }
+        })
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    props.changeFollowedStatus(uID, false)
+                }
+            })
     }
 
     return (
@@ -50,8 +75,17 @@ export const Users = (props: UsersPropsType) => {
                                          alt="ava"/>
                                 </NavLink>
                                 <div>
-                                    <button
-                                        onClick={() => onClickHandler(u.id, !u.followed)}>{u.followed ? `followed` : `unfollowed`}</button>
+                                    {
+                                        u.followed
+                                            ?
+                                            <button
+                                                onClick={() => onClickHandlerUnFollow(u.id)}>{`Unfollowed`}
+                                            </button>
+                                            :
+                                            <button
+                                                onClick={() => onClickHandlerFollow(u.id)}>{`Followed`}
+                                            </button>
+                                    }
                                 </div>
                             </div>
                             <div className={s.userInfo}>
