@@ -7,10 +7,8 @@ import {
 } from '../../redux/usersReducer';
 import {AppStateType} from '../../redux/redux-store';
 import React from 'react';
-
 import {Users} from './Users';
 import {Preloader} from "../common/Preloader/Preloader";
-import {usersAPI} from "../../api/api";
 
 type UsersUIPropsType = {
     items: UserType[]
@@ -19,10 +17,7 @@ type UsersUIPropsType = {
     currentPage: number
     isFetching: boolean
     follow: (uID: number, value: boolean) => void
-    // setState: (newState: UserType[]) => void
     setCurrentPage: (page: number) => void
-    // setTotalCount: (count: number) => void
-    // setIsFetching: (value: boolean) => void
     getUsersThunkCreator:(currentPage: number, pageSize: number) => void
 }
 
@@ -30,26 +25,11 @@ class UsersClassContainer extends React.Component<UsersUIPropsType> {
 
     componentDidMount() {
         this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
-        // this.props.setIsFetching(true)
-        //
-        // usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-        //     .then(data => {
-        //         this.props.setIsFetching(false)
-        //         this.props.setState(data.items)
-        //         this.props.setTotalCount(data.totalCount)
-        //     })
     }
 
     onClickPageHandler = (page: number) => {
         this.props.setCurrentPage(page)
         this.props.getUsersThunkCreator(page, this.props.pageSize)
-
-        // this.props.setIsFetching(true)
-        //
-        // usersAPI.getUsers(page, this.props.pageSize).then(data => {
-        //     this.props.setIsFetching(false)
-        //     this.props.setState(data.items)
-        // })
     }
 
     render() {

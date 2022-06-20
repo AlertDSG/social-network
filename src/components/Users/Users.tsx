@@ -4,6 +4,7 @@ import {UserType} from "../../redux/usersReducer";
 import avatar from '../../assets/images/avatar.png'
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {usersAPI} from "../../api/api";
 
 type UsersPropsType = {
     items: UserType[]
@@ -27,12 +28,7 @@ export const Users = (props: UsersPropsType) => {
 
     const onClickHandlerFollow = (uID: number) => {
         setDisabled(uID)
-        axios.post<any>(`https://social-network.samuraijs.com/api/1.0/follow/${uID}`, {}, {
-            withCredentials: true,
-            headers: {
-                "API-KEY": "daa5219f-4bd1-4a25-b139-227a461bb757"
-            }
-        })
+        usersAPI.follow(uID)
             .then(res => {
                 if (res.data.resultCode === 0) {
                     props.changeFollowedStatus(uID, true)
@@ -45,12 +41,7 @@ export const Users = (props: UsersPropsType) => {
     const onClickHandlerUnFollow = (uID: number) => {
         setDisabled(uID)
 
-        axios.delete<any>(`https://social-network.samuraijs.com/api/1.0/follow/${uID}`, {
-            withCredentials: true,
-            headers: {
-                "API-KEY": "daa5219f-4bd1-4a25-b139-227a461bb757"
-            }
-        })
+        usersAPI.unfollow(uID)
             .then(res => {
                 if (res.data.resultCode === 0) {
                     props.changeFollowedStatus(uID, false)
