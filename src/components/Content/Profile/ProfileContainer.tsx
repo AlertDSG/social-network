@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {ProfileGetAPIType, setStateProfile} from "../../../redux/profileReducer";
 import {AppStateType} from "../../../redux/redux-store";
 import {useParams} from "react-router-dom";
+import {WithAuthRedirect} from "../../../hoc/withAuthRedirect";
 
 export const ContainerComponentAPI = (props: ContainerPropsType ) => {
     const userId: string = Object.values(useParams()).join()
@@ -36,5 +37,5 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 
-export const ProfileContainer = connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(mapStateToProps, {setStateProfile})(ContainerComponentAPI)
+export const ProfileContainer = WithAuthRedirect(connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(mapStateToProps, {setStateProfile})(ContainerComponentAPI))
 

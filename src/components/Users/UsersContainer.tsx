@@ -9,6 +9,8 @@ import {AppStateType} from '../../redux/redux-store';
 import React from 'react';
 import {Users} from './Users';
 import {Preloader} from "../common/Preloader/Preloader";
+import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 type UsersUIPropsType = {
     items: UserType[]
@@ -57,11 +59,14 @@ const mapStateToProps = (state: AppStateType): InitialStateType => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, {
-    follow,
-    setState,
-    setCurrentPage,
-    setTotalCount,
-    setIsFetching,
-    getUsersThunkCreator,
-})(UsersClassContainer)
+export default compose<React.ComponentType>(
+    WithAuthRedirect,
+    connect(mapStateToProps, {
+        follow,
+        setState,
+        setCurrentPage,
+        setTotalCount,
+        setIsFetching,
+        getUsersThunkCreator,
+    })
+)(UsersClassContainer)

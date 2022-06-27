@@ -1,5 +1,6 @@
 import {ActionsType} from "./AllTypeProject";
 import {usersAPI} from "../api/api";
+import {AppDispatch} from "./redux-store";
 
 const STATUS_FOLLOWED = 'STATUS-FOLLOWED';
 const NEW_STATE = 'NEW_STATE';
@@ -100,7 +101,7 @@ export const setIsFetching = (value: boolean): ActionsType => {
 
 
 export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-    return (dispatch: any) => {
+    return (dispatch: AppDispatch) => {
         dispatch(setIsFetching(true))
 
         usersAPI.getUsers(currentPage, pageSize)
