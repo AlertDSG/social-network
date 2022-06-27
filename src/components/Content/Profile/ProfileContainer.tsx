@@ -1,28 +1,30 @@
 import React, {useEffect} from "react";
 import {Profile} from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
-import {ProfileGetAPIType, setStateProfile} from "../../../redux/profileReducer";
+import {
+    getProfile,
+    getStatus, updateStatus,
+} from "../../../redux/profileReducer";
 import {AppStateType} from "../../../redux/redux-store";
 import {useParams} from "react-router-dom";
-import {WithAuthRedirect} from "../../../hoc/withAuthRedirect";
 
-export const ContainerComponentAPI = (props: ContainerPropsType ) => {
+export const ContainerComponentAPI = (props: ContainerPropsType) => {
+
     const userId: string = Object.values(useParams()).join()
     useEffect(() => {
-        axios.get<ProfileGetAPIType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(response => {
-                props.setStateProfile(response.data)
-            })
+        props.getProfile(+userId)
+        props.getStatus(+userId)
     }, [])
 
-    return <Profile data={props.data}/>
+    return <Profile data={props.data} status={props.status} updateStatus={props.updateStatus}/>
 }
 
 type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 
 type MapDispatchToPropsType = {
-    setStateProfile: (data: ProfileGetAPIType) => void
+    getStatus: (userId: number) => void
+    getProfile: (userId: number) => void
+    updateStatus: (status: string) => void
 }
 
 type OwnProps = {}
@@ -32,10 +34,15 @@ type ContainerPropsType = MapStateToPropsType & MapDispatchToPropsType & OwnProp
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        data: state.profilePage.data
+        data: state.profilePage.data,
+        status: state.profilePage.status
     } as const
 }
 
 
-export const ProfileContainer = WithAuthRedirect(connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(mapStateToProps, {setStateProfile})(ContainerComponentAPI))
+export const ProfileContainer = connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(mapStateToProps, {
+    getProfile,
+    getStatus,
+    updateStatus
+})(ContainerComponentAPI)
 

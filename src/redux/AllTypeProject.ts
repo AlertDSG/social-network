@@ -1,5 +1,5 @@
 import {UserType} from "./usersReducer";
-import {ProfileGetAPIType} from "./profileReducer";
+import {ProfileGetAPIType, setStatusProfile} from "./profileReducer";
 import {UserAuthType} from "./authReducer";
 
 export type RootStateType = {
@@ -71,6 +71,10 @@ type SetUserDataAT = {
     type: 'SET_USER_DATA',
     data: UserAuthType
 }
+type SetStatusProfileAT = {
+    type: 'SET_STATUS',
+    status: string
+}
 
 export type ActionsType = AddPostActionCreatorType
     | AddMessageActionCreatorType
@@ -81,3 +85,4 @@ export type ActionsType = AddPostActionCreatorType
     | SetIsFetchingActionType
     | SetStateProfileAT
     | SetUserDataAT
+    | SetStatusProfileAT
