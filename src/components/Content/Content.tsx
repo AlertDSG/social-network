@@ -8,10 +8,6 @@ import UsersClassContainer from "../Users/UsersContainer"
 import {ProfileContainer} from "./Profile/ProfileContainer";
 import {Login} from "../Login/Login";
 
-
-
-
-
 export const Content = () => {
     return (
             <Routes>
@@ -22,7 +18,7 @@ export const Content = () => {
                 <Route path='/news/*' element={<News/>}/>
                 <Route path='/music/*' element={<Music/>}/>
                 <Route path='/settings/*' element={<Settings/>}/>
-                <Route path='/login' element={<Login/>}/>
+                <Route path='/login/*' element={<Login/>}/>
             </Routes>
     )
 }

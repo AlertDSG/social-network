@@ -1,15 +1,17 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
 import thunkMiddleware from "redux-thunk";
 import {dialogsReducer} from "./dialogsReducer";
 import {profileReducer} from "./profileReducer";
 import {usersReducer} from "./usersReducer";
 import {authReducer} from "./authReducer";
+import { reducer as formReducer } from "redux-form";
 
 const rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
     profilePage: profileReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+    form: formReducer
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>
