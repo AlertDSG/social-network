@@ -36,11 +36,15 @@ export const profileAPI = {
 
 export const authAPI = {
     me(){
-        return instance.get(`auth/me`)
+        return instance.get<ResponseType<{id: number, email: string, login: string}>>(`auth/me`)
     },
-    auth(data: MyFormValues){
-        return instance.post<AxiosResponse<ResponseType<{userId: number}>>>(`auth/login`, data)
+    login(data: MyFormValues){
+        return instance.post<ResponseType<{userId: number}>>(`auth/login`, data)
+    },
+    logout(){
+        return instance.delete<AxiosResponse<ResponseType<{}>>>(`auth/login`)
     }
+
 }
 
  export type MyFormValues = {

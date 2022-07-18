@@ -10,13 +10,17 @@ export type UserAuthType = {
 
 }
 export type InitialStateType = {
-    data: UserAuthType | null
+    id: number | null
+    email: string | null
+    login: string | null
     isAuth: boolean
 }
 
 const initialState: InitialStateType = {
-    data: null,
-    isAuth: false
+    id:  null,
+    email:  null,
+    login:  null,
+    isAuth: false,
 }
 
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
@@ -25,7 +29,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
 
             return {
                 ...state,
-                data: action.data,
+                ...action.data,
                 isAuth: true
             }
 
@@ -43,8 +47,23 @@ export const setUserData = (data: UserAuthType) => {
 type SetUserDataAT = ReturnType<typeof setUserData>
 export type AuthActionType = SetUserDataAT
 
+export const getAuthUserData = (): AppThunk => (dispatch) => {
+
+    authAPI.me()
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setUserData(res.data.data))
+            }
+        })
+}
+
 export const loginTC = (data: MyFormValues): AppThunk => (dispatch) => {
 
-    authAPI.auth(data)
-        .then()
+    authAPI.login(data)
+        .then(res => {
+            console.log(res.data)
+            if (res.data.resultCode === 0) {
+                dispatch(getAuthUserData())
+            }
+        })
 }

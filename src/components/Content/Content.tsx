@@ -10,15 +10,17 @@ import {Login} from "../Login/Login";
 
 export const Content = () => {
     return (
-            <Routes>
-                <Route path='/profile/:userId' element={<ProfileContainer/>}/>
-                <Route path='/dialogs/*'
-                       element={<DialogsContainer/>}/>
-                <Route path='/users/*' element={<UsersClassContainer/>}/>
-                <Route path='/news/*' element={<News/>}/>
-                <Route path='/music/*' element={<Music/>}/>
-                <Route path='/settings/*' element={<Settings/>}/>
-                <Route path='/login/*' element={<Login/>}/>
-            </Routes>
+        <Routes>
+            <Route path='/profile*'>
+                <Route path=':userId' element={<ProfileContainer/>}/>
+            </Route>
+            <Route path='/dialogs/*'
+                   element={<DialogsContainer/>}/>
+            <Route path='/users/*' element={<UsersClassContainer/>}/>
+            <Route path='/news/*' element={<News/>}/>
+            <Route path='/music/*' element={<Music/>}/>
+            <Route path='/settings/*' element={<Settings/>}/>
+            <Route path='/login/*' element={<Login/>}/>
+        </Routes>
     )
 }

@@ -1,4 +1,3 @@
-import {ActionsType} from "./AllTypeProject";
 import {AppDispatch} from "./redux-store";
 import {profileAPI} from "../api/api";
 

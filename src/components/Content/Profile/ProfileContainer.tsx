@@ -13,12 +13,13 @@ export const ContainerComponentAPI = (props: ContainerPropsType) => {
     let {userId} = useParams()
 
     useEffect(() => {
-        if(userId) {
-            props.getProfile(+userId)
-            props.getStatus(+userId)
+        if(!userId) {
+            userId = '24122'
         }
+        userId && props.getProfile(+userId)
+        userId && props.getStatus(+userId)
     }, [])
-
+    console.log(userId)
     return <Profile data={props.data} status={props.status} updateStatus={props.updateStatus}/>
 }
 
@@ -38,7 +39,8 @@ type ContainerPropsType = MapStateToPropsType & MapDispatchToPropsType & OwnProp
 const mapStateToProps = (state: AppStateType) => {
     return {
         data: state.profilePage.data,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        authId: state.auth.id
     } as const
 }
 

@@ -1,21 +1,23 @@
 import React from 'react';
 import {useFormik} from 'formik';
+import {useAppDispatch} from "../../app/hooks/hooks";
+import {loginTC} from "../../redux/authReducer";
 
 type FormikErrorType = {
     email?: string
     password?: string
     rememberMe?: boolean
-    captcha?: string
 }
 
 export const Login = () => {
+
+    const dispatch = useAppDispatch()
 
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
             rememberMe: false,
-            captcha: ''
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -25,15 +27,15 @@ export const Login = () => {
                 errors.email = 'Invalid email address';
             }
 
-            if(!values.password) {
+            if (!values.password) {
                 errors.password = 'Required';
-            }else if(values.password.length < 3){
+            } else if (values.password.length < 3) {
                 errors.password = 'Should be more 3';
             }
             return errors;
         },
         onSubmit: values => {
-            console.log(values)
+            dispatch(loginTC(values))
         },
     });
 
@@ -49,24 +51,34 @@ export const Login = () => {
             <p>Password: free</p>
 
             <form onSubmit={formik.handleSubmit}>
-                <input
-                    type="email"
-                    {...formik.getFieldProps('email')}
-                />
-                {formik.touched.email && formik.errors.email ? <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
-                <input
-                    type="password"
-                    {...formik.getFieldProps('password')}
-                />
-                {formik.touched.password && formik.errors.password ? <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
-                <input
-                    type="checkbox"
-                    checked={formik.values.rememberMe}
-                    {...formik.getFieldProps('rememberMe')}
-                />
-                <button type="submit" >
-                    Submit
-                </button>
+                <div>
+                    <input
+                        type="email"
+                        {...formik.getFieldProps('email')}
+                    />
+                </div>
+                {formik.touched.email && formik.errors.email ?
+                    <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                <div>
+                    <input
+                        type="password"
+                        {...formik.getFieldProps('password')}
+                    />
+                </div>
+                {formik.touched.password && formik.errors.password ?
+                    <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                <div>
+                    <input
+                        type="checkbox"
+                        checked={formik.values.rememberMe}
+                        {...formik.getFieldProps('rememberMe')}
+                    />
+                </div>
+                <div>
+                    <button type="submit">
+                        Submit
+                    </button>
+                </div>
             </form>
         </div>
     );

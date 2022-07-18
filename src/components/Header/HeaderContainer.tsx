@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import {Header} from "./Header";
-import axios from "axios";
 import {setUserData, UserAuthType} from "../../redux/authReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
+import {authAPI} from "../../api/api";
 
 type HeaderContainerPropsType = MapStateToPropsType & MapDispatchToPropsType & OwnProps
 
@@ -18,12 +18,7 @@ type OwnProps = {}
 const HeaderContainer = (props: HeaderContainerPropsType) => {
     useEffect(() => {
 
-        axios.get<{
-            data: UserAuthType
-            resultCode: number
-        }>(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-        })
+       authAPI.me()
             .then(response => {
                 !response.data.resultCode && props.setUserData(response.data.data)
             })
@@ -34,7 +29,7 @@ const HeaderContainer = (props: HeaderContainerPropsType) => {
 const mapStateToProps = (state: AppStateType) => {
     return {
         isAuth: state.auth.isAuth,
-        loginUser: state.auth.data?.login
+        loginUser: state.auth.login
     } as const
 }
 

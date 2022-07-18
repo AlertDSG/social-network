@@ -1,7 +1,21 @@
 import {v1} from "uuid";
-import {ActionsType, DialogsType} from "./AllTypeProject";
+
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
+
+export type DialogsType = {
+    messages: Array<MessageType>
+    dialogs: Array<DialogType>
+}
+
+type MessageType = {
+    id: string
+    message: string
+}
+type DialogType = {
+    id: string
+    name: string
+}
 
 const initialState: DialogsType = {
     messages: [
@@ -18,10 +32,10 @@ const initialState: DialogsType = {
     ]
 }
 
-export const dialogsReducer = (state = initialState , action: DialogActionType): DialogsType => {
+export const dialogsReducer = (state = initialState, action: DialogActionType): DialogsType => {
     switch (action.type) {
         case ADD_MESSAGE:
-            const newMessage: { id: string; message: string;} = {
+            const newMessage: { id: string; message: string; } = {
                 id: v1(),
                 message: action.message,
             };
@@ -31,7 +45,7 @@ export const dialogsReducer = (state = initialState , action: DialogActionType):
     }
 }
 
-export const addMessageAC = (value: string)  => {
+export const addMessageAC = (value: string) => {
 
     return {
         type: ADD_MESSAGE,
