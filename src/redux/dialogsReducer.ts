@@ -18,7 +18,7 @@ const initialState: DialogsType = {
     ]
 }
 
-export const dialogsReducer = (state = initialState , action: ActionsType): DialogsType => {
+export const dialogsReducer = (state = initialState , action: DialogActionType): DialogsType => {
     switch (action.type) {
         case ADD_MESSAGE:
             const newMessage: { id: string; message: string;} = {
@@ -31,10 +31,14 @@ export const dialogsReducer = (state = initialState , action: ActionsType): Dial
     }
 }
 
-export const addMessageAC = (value: string): ActionsType  => {
+export const addMessageAC = (value: string)  => {
 
     return {
         type: ADD_MESSAGE,
         message: value
-    }
+    } as const
 }
+
+export type AddMessageActionCreatorType = ReturnType<typeof addMessageAC>
+
+export type DialogActionType = AddMessageActionCreatorType

@@ -1,6 +1,5 @@
-import {ActionsType} from "./AllTypeProject";
 import {usersAPI} from "../api/api";
-import {AppDispatch} from "./redux-store";
+import {AppDispatch, AppThunk} from "./redux-store";
 
 const STATUS_FOLLOWED = 'STATUS-FOLLOWED';
 const NEW_STATE = 'NEW_STATE';
@@ -36,7 +35,7 @@ const initialState: InitialStateType = {
     isFetching: false,
 }
 
-export const usersReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const usersReducer = (state: InitialStateType = initialState, action: UserActionType): InitialStateType => {
     switch (action.type) {
         case STATUS_FOLLOWED:
             return {
@@ -51,57 +50,69 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
             }
         case SET_TOTAL_COUNT:
             return {
-            ...state, totalCount: action.totalCount
-        }
+                ...state, totalCount: action.totalCount
+            }
         case SET_IS_FETCHING:
             return {
-            ...state, isFetching: action.isFetching
-        }
+                ...state, isFetching: action.isFetching
+            }
         default:
             return state
     }
 }
 
-export const follow = (uID: number, value: boolean): ActionsType => {
+export const follow = (uID: number, value: boolean) => {
 
     return {
         type: STATUS_FOLLOWED,
         userID: uID,
         followed: value
-    }
+    } as const
 }
-export const setState = (newState: UserType[]): ActionsType => {
+export const setState = (newState: UserType[]) => {
 
     return {
         type: NEW_STATE,
-        newState: newState,
-    }
+        newState
+    } as const
 }
-export const setCurrentPage = (currentPage: number): ActionsType => {
+export const setCurrentPage = (currentPage: number) => {
 
     return {
         type: SET_CURRENT_PAGE,
         currentPage: currentPage,
-    }
+    } as const
 }
-export const setTotalCount = (totalCount: number): ActionsType => {
+export const setTotalCount = (totalCount: number) => {
 
     return {
         type: SET_TOTAL_COUNT,
-        totalCount: totalCount,
-    }
+        totalCount
+    } as const
 }
-export const setIsFetching = (value: boolean): ActionsType => {
+export const setIsFetching = (isFetching: boolean) => {
 
     return {
         type: SET_IS_FETCHING,
-        isFetching: value,
-    }
+        isFetching
+    } as const
 }
 
+type StatusFollowedActionCreatorType = ReturnType<typeof follow>
+type StateActionType = ReturnType<typeof setState>
+type SetCurrentPageActionType = ReturnType<typeof setCurrentPage>
+type SetTotalCountActionType = ReturnType<typeof setTotalCount>
+type SetIsFetchingActionType = ReturnType<typeof setIsFetching>
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-    return (dispatch: AppDispatch) => {
+export type UserActionType =
+    StateActionType
+    | SetCurrentPageActionType
+    | SetTotalCountActionType
+    | StatusFollowedActionCreatorType
+    | SetIsFetchingActionType
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number): AppThunk => {
+    return (dispatch) => {
         dispatch(setIsFetching(true))
 
         usersAPI.getUsers(currentPage, pageSize)

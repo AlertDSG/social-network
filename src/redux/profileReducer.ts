@@ -1,13 +1,12 @@
 import {ActionsType} from "./AllTypeProject";
 import {AppDispatch} from "./redux-store";
 import {profileAPI} from "../api/api";
-import {log} from "util";
 
 const ADD_POST = 'ADD-POST';
 const SET_STATE_PROFILE = 'SET_STATE_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
-type ContactsType ={
+type ContactsType = {
     github: string
     vk: string
     facebook: string
@@ -48,7 +47,7 @@ const initialState: InitialProfileStateType = {
     status: ''
 }
 
-export const profileReducer = (state = initialState, action: ActionsType): InitialProfileStateType => {
+export const profileReducer = (state = initialState, action: ProfileActionType): InitialProfileStateType => {
 
     switch (action.type) {
         case ADD_POST:
@@ -62,7 +61,7 @@ export const profileReducer = (state = initialState, action: ActionsType): Initi
             return {
                 ...state, data: action.data
             };
-            case SET_STATUS:
+        case SET_STATUS:
             return {
                 ...state, status: action.status
             }
@@ -71,34 +70,39 @@ export const profileReducer = (state = initialState, action: ActionsType): Initi
     }
 }
 
-export const addPostAC = (value: string): ActionsType => {
+export const addPostAC = (newText: string) => {
     return {
         type: ADD_POST,
-        newText: value
-    }
+        newText
+    } as const
 }
-export const setStateProfile = (data: ProfileGetAPIType): ActionsType => {
+export const setStateProfile = (data: ProfileGetAPIType) => {
     return {
         type: SET_STATE_PROFILE,
         data
-    }
+    } as const
 }
-export const setStatusProfile = (status: string): ActionsType => {
+export const setStatusProfile = (status: string) => {
     return {
         type: SET_STATUS,
         status
-    }
+    } as const
 }
 
-export const getProfile = (userId: number) => ( dispatch: AppDispatch ) => {
+type AddPostActionCreatorType = ReturnType<typeof addPostAC>
+type SetStateProfileAT = ReturnType<typeof setStateProfile>
+type SetStatusProfileAT = ReturnType<typeof setStatusProfile>
+
+export type ProfileActionType = AddPostActionCreatorType | SetStateProfileAT | SetStatusProfileAT
+
+export const getProfile = (userId: number) => (dispatch: AppDispatch) => {
     profileAPI.getProfile(userId)
         .then(response => {
             dispatch(setStateProfile(response.data))
         })
         .catch(err => console.log(err))
 }
-export const getStatus = (userId: number) => ( dispatch: AppDispatch ) => {
-    debugger
+export const getStatus = (userId: number) => (dispatch: AppDispatch) => {
     profileAPI.getStatus(userId)
         .then(res => {
             dispatch(setStatusProfile(res.data))
@@ -106,11 +110,11 @@ export const getStatus = (userId: number) => ( dispatch: AppDispatch ) => {
         .catch(err => console.log(err))
 }
 
-export const updateStatus = (status: string) => ( dispatch: AppDispatch ) => {
+export const updateStatus = (status: string) => (dispatch: AppDispatch) => {
     debugger
     profileAPI.updateStatus(status)
         .then(res => {
-            if(res.data.resultCode === 0){
+            if (res.data.resultCode === 0) {
                 dispatch(setStatusProfile(status))
             }
 

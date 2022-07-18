@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {InitialStateType} from "../redux/usersReducer";
 
 const instance = axios.create({
@@ -37,6 +37,21 @@ export const profileAPI = {
 export const authAPI = {
     me(){
         return instance.get(`auth/me`)
+    },
+    auth(data: MyFormValues){
+        return instance.post<AxiosResponse<ResponseType<{userId: number}>>>(`auth/login`, data)
     }
 }
 
+ export type MyFormValues = {
+    password: string
+    email: string
+    rememberMe?: boolean
+    captcha?: string
+}
+
+type ResponseType<T> = {
+    resultCode: number
+    messages: Array<string>
+    data: T
+}

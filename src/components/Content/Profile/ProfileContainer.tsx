@@ -10,10 +10,13 @@ import {useParams} from "react-router-dom";
 
 export const ContainerComponentAPI = (props: ContainerPropsType) => {
 
-    const userId: string = Object.values(useParams()).join()
+    let {userId} = useParams()
+
     useEffect(() => {
-        props.getProfile(+userId)
-        props.getStatus(+userId)
+        if(userId) {
+            props.getProfile(+userId)
+            props.getStatus(+userId)
+        }
     }, [])
 
     return <Profile data={props.data} status={props.status} updateStatus={props.updateStatus}/>
