@@ -11,7 +11,7 @@ import {Login} from "../Login/Login";
 export const Content = () => {
     return (
         <Routes>
-            <Route path='/profile*'>
+            <Route path='/profile'>
                 <Route path=':userId' element={<ProfileContainer/>}/>
             </Route>
             <Route path='/dialogs/*'

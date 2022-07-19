@@ -1,7 +1,8 @@
 import React from 'react';
 import {useFormik} from 'formik';
-import {useAppDispatch} from "../../app/hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../app/hooks/hooks";
 import {loginTC} from "../../redux/authReducer";
+import { Navigate } from 'react-router-dom';
 
 type FormikErrorType = {
     email?: string
@@ -12,6 +13,7 @@ type FormikErrorType = {
 export const Login = () => {
 
     const dispatch = useAppDispatch()
+    const isAuth = useAppSelector(state=> state.auth.isAuth)
 
     const formik = useFormik({
         initialValues: {
@@ -38,6 +40,9 @@ export const Login = () => {
             dispatch(loginTC(values))
         },
     });
+    if(isAuth){
+        return <Navigate to='/profile'/>
+    }
 
     return (
         <div>

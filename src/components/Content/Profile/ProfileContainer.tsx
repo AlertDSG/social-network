@@ -11,14 +11,17 @@ import {useParams} from "react-router-dom";
 export const ContainerComponentAPI = (props: ContainerPropsType) => {
 
     let {userId} = useParams()
+    console.log(typeof userId)
 
     useEffect(() => {
         if(!userId) {
-            userId = '24122'
+            props.authId &&  props.getProfile(props.authId)
+            props.authId && props.getStatus(props.authId)
+        } else{
+            userId && props.getProfile(+userId)
+            userId && props.getStatus(+userId)
         }
-        userId && props.getProfile(+userId)
-        userId && props.getStatus(+userId)
-    }, [])
+    }, [userId, props.authId])
     console.log(userId)
     return <Profile data={props.data} status={props.status} updateStatus={props.updateStatus}/>
 }
