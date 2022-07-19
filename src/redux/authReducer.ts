@@ -1,5 +1,7 @@
 import {authAPI, MyFormValues} from "../api/api";
 import {AppThunk} from "./redux-store";
+import {initialisedApp} from "../app/app-reducer";
+
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const LOGOUT = 'LOGOUT-USER';
@@ -63,11 +65,13 @@ export type AuthActionType = SetUserDataAT | LogoutUserAT
 
 export const getAuthUserData = (): AppThunk => (dispatch) => {
 
-    authAPI.me()
+   return authAPI.me()
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setUserData(res.data.data, true))
+
             }
+            dispatch(initialisedApp())
         })
 }
 
@@ -75,6 +79,7 @@ export const loginTC = (data: MyFormValues): AppThunk => (dispatch) => {
 
     authAPI.login(data)
         .then(res => {
+
             if (res.data.resultCode === 0) {
                 dispatch(getAuthUserData())
             }

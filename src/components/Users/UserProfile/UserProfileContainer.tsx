@@ -1,20 +1,26 @@
 import React, {useEffect} from "react";
-import {Profile} from "./Profile";
+import {UserProfile} from "./UserProfile";
 import {connect} from "react-redux";
 import {
     getProfile,
     getStatus, updateStatus,
 } from "../../../redux/profileReducer";
 import {AppStateType} from "../../../redux/redux-store";
+import {useParams} from "react-router-dom";
 
-export const ContainerComponentAPI = (props: ContainerPropsType) => {
+export const UserProfileComponentAPI = (props: ContainerPropsType) => {
+
+    let {userId} = useParams()
+
 
     useEffect(() => {
-            props.authId && props.getProfile(props.authId)
+
+            userId && props.getProfile(+userId)
+            userId && props.getStatus(+userId)
 
     }, [])
 
-    return <Profile data={props.data} status={props.status} updateStatus={props.updateStatus} isAuth={props.isAuth}/>
+    return <UserProfile data={props.data} status={props.status} updateStatus={props.updateStatus}/>
 }
 
 type MapStateToPropsType = ReturnType<typeof mapStateToProps>
@@ -34,15 +40,14 @@ const mapStateToProps = (state: AppStateType) => {
     return {
         data: state.profilePage.data,
         status: state.profilePage.status,
-        authId: state.auth.id,
-        isAuth: state.auth.isAuth,
+        authId: state.auth.id
     } as const
 }
 
 
-export const ProfileContainer = connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(mapStateToProps, {
+export const UserProfileContainer = connect<MapStateToPropsType, MapDispatchToPropsType, OwnProps, AppStateType>(mapStateToProps, {
     getProfile,
     getStatus,
     updateStatus
-})(ContainerComponentAPI)
+})(UserProfileComponentAPI)
 

@@ -9,13 +9,14 @@ type ProfileType = {
     data: ProfileGetAPIType | null
     status: string
     updateStatus: (status: string) => void
+    isAuth: boolean
 }
 
 export const Profile = (props: ProfileType) => {
 
     return (
         <div className={s.contentBody}>
-            <ProfileInfo data={props.data} status={props.status} updateStatus={props.updateStatus}/>
+            <ProfileInfo data={props.data} status={props.status} updateStatus={props.updateStatus} isAuth={props.isAuth}/>
             <MyPostsContainer/>
         </div>
     )

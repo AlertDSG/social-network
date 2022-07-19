@@ -17,10 +17,7 @@ type MapDispatchToPropsType = {
 type OwnProps = {}
 
 const HeaderContainer = (props: HeaderContainerPropsType) => {
-    useEffect(() => {
-                getAuthUserData()
 
-    }, [])
     return <Header loginUser={props.loginUser} isAuth={props.isAuth} logout={props.logoutTC}/>;
 };
 

@@ -4,17 +4,25 @@ import avatar from '../../../../assets/images/avatar.png';
 import {ProfileGetAPIType} from "../../../../redux/profileReducer";
 import {Preloader} from "../../../common/Preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus";
+import { Navigate } from 'react-router-dom';
+
 
 type ProfileInfoType = {
     data: ProfileGetAPIType | null
     status: string
     updateStatus: (status: string) => void
+    isAuth: boolean
 }
 
 export const ProfileInfo = (props: ProfileInfoType) => {
+    if(!props.isAuth){
+        return <Navigate to={'/login'}/>
+    }
+
     if (!props.data) {
         return <Preloader/>
     }
+
 
     return (
 

@@ -7,13 +7,13 @@ import {DialogsContainer} from "./Messages/DialogsContainer";
 import UsersClassContainer from "../Users/UsersContainer"
 import {ProfileContainer} from "./Profile/ProfileContainer";
 import {Login} from "../Login/Login";
+import {UserProfileContainer} from "../Users/UserProfile/UserProfileContainer";
 
 export const Content = () => {
     return (
         <Routes>
-            <Route path='/profile'>
-                <Route path=':userId' element={<ProfileContainer/>}/>
-            </Route>
+            <Route path='profile' element={<ProfileContainer/>}/>
+            <Route path='profile/:userId' element={<UserProfileContainer/>}/>
             <Route path='/dialogs/*'
                    element={<DialogsContainer/>}/>
             <Route path='/users/*' element={<UsersClassContainer/>}/>
